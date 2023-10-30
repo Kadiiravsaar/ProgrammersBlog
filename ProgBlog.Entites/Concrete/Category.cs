@@ -12,5 +12,6 @@ namespace ProgBlog.Entites.Concrete
         public string Name { get; set; }
         public string Description { get; set; }
         public ICollection<Article> Articles { get; set; } // makaleler postlar
+        // bir kategoride birden fazla makale olabilir
     }
 }
