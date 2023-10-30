@@ -14,6 +14,8 @@ namespace ProgBlog.Entites.Concrete
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; } // hashlemek için byte kullandık
         public string UserName { get; set; }
+        public string Picture { get; set; }
+        public string Description { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
         public ICollection<Article> Articles{ get; set; }

@@ -25,5 +25,7 @@ namespace ProgBlog.Entites.Concrete
         public int UserId { get; set; }
         public User User { get; set; } // bir makalede bir yazar
 
+        public ICollection<Comment> Comments { get; set; }
+
     }
 }
