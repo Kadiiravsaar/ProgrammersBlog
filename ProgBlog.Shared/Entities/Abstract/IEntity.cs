@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProgBlog.Shared.Entities.Abstract
 {
-    public interface IEntity // sadece bir imza olacak
+    public interface IEntity  // sadece bir imza olacak
     {
     }
 }
