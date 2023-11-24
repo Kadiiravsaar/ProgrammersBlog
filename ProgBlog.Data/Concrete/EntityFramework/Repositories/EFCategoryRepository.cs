@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using ProgBlog.Data.Abstract;
+using ProgBlog.Entites.Concrete;
+using ProgBlog.Shared.Data.Concrete.EntityFramework;
 
 namespace ProgBlog.Data.Concrete.EntityFramework.Repositories
 {
-    public class EFCategoryRepository
+    public class EFCategoryRepository : EfEntityRepositoryBase<Category>, ICategoryRepository
     {
+        public EFCategoryRepository(DbContext context) : base(context)
+        {
+        }
     }
 }
