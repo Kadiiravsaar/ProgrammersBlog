@@ -19,5 +19,5 @@ namespace ProgBlog.Data.Abstract
         // unitOfWork.Users.AddAsync(user);
         // unitOfWork.Categories.AddAsync(category);
         // unitOfWork.SaveAsync();
-;    }
+   }
 }
