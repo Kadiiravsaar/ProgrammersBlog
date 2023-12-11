@@ -42,6 +42,50 @@ namespace ProgBlog.Data.Concrete.EntityFramework.Mappings
             // içeride bir yabancı ıd olmadığı için bir ilişki yok
 
             builder.ToTable("Categories");
+
+
+            builder.HasData(
+            new Category
+            {
+                Id = 1,
+                Name = "C#",
+                Description = "C# Programlama Dili ile İlgili En Güncel Bilgiler",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedByName = "InitialCreate",
+                CreatedDate = DateTime.Now,
+                ModifiedByName = "InitialCreate",
+                ModifiedDate = DateTime.Now,
+                Note = "C# Blog Kategorisi",
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "C++",
+                Description = "C++ Programlama Dili ile İlgili En Güncel Bilgiler",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedByName = "InitialCreate",
+                CreatedDate = DateTime.Now,
+                ModifiedByName = "InitialCreate",
+                ModifiedDate = DateTime.Now,
+                Note = "C++ Blog Kategorisi",
+            },
+
+            new Category
+            {
+                Id = 3,
+                Name = "JavaScript",
+                Description = "JavaScript Programlama Dili ile İlgili En Güncel Bilgiler",
+                IsActive = true,
+                IsDeleted = false,
+                CreatedByName = "InitialCreate",
+                CreatedDate = DateTime.Now,
+                ModifiedByName = "InitialCreate",
+                ModifiedDate = DateTime.Now,
+                Note = "JavaScript Blog Kategorisi",
+            }
+        );
         }
     }
 }
