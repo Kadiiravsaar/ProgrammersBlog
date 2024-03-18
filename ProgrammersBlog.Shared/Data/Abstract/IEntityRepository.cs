@@ -13,14 +13,17 @@ namespace ProgrammersBlog.Shared.Data.Abstract
     {
         Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
 
-        Task<T?> GetAsyncEng(
-       Expression<Func<T, bool>> predicate,
-       Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-       bool withDeleted = false,
-       bool enableTracking = true
-      );
 
-        Task<IList<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,bool withDeleted = false,bool enableTracking = true);
+        Task<T?> GetAsyncEng(
+           Expression<Func<T, bool>> predicate,
+           Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+           bool withDeleted = false,
+           bool enableTracking = true);
+
+        Task<IList<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+            bool withDeleted = false,
+            bool enableTracking = true);
 
         Task<IList<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties);
         Task AddAsync(T entity);

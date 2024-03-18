@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgrammersBlog.Data.Abstract;
 using ProgrammersBlog.Entites.Concrete;
-using ProgrammersBlog.Entites.Dtos.Category;
+using ProgrammersBlog.Entites.Dtos.CategoryDto;
 using ProgrammersBlog.Services.Abstract;
 using ProgrammersBlog.Shared.Utilities.Results.Abstract;
 using ProgrammersBlog.Shared.Utilities.Results.ComplexTypes;

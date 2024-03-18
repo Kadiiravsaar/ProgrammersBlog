@@ -1,5 +1,5 @@
 ﻿using ProgrammersBlog.Entites.Concrete;
-using ProgrammersBlog.Entites.Dtos.Category;
+using ProgrammersBlog.Entites.Dtos.CategoryDto;
 using ProgrammersBlog.Shared.Utilities.Results.Abstract;
 using System;
 using System.Collections.Generic;
