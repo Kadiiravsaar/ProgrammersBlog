@@ -17,8 +17,8 @@ namespace ProgrammersBlog.Entites.Concrete
         public string Content { get; set; }
         public string Thumbnail { get; set; }
         public DateTime Date { get; set; }
-        public int ViewsCount { get; set; } // Okunma sayısı
-        public int CommentCount { get; set; } // Yorum sayısı
+        public int ViewsCount { get; set; } = 0; // Okunma sayısı
+        public int CommentCount { get; set; } = 0; // Yorum sayısı
         public string SeoAuthor { get; set; } // Kim yazdı
         public string SeoDescription { get; set; }
         public string SeoTags { get; set; } // Etiketler
