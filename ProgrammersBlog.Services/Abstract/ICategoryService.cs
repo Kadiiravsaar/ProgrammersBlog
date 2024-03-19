@@ -11,12 +11,14 @@ namespace ProgrammersBlog.Services.Abstract
 {
     public interface ICategoryService
     {
-        Task<IDataResult<IList<Category>>> GetAll(); // Tüm kategorileri getiren metot
+        Task<IDataResult<CategoryListDto>> GetAll(); // Tüm kategorileri getiren metot
 
-        Task<IDataResult<IList<Category>>> GetAllByNonDelete(); // Silinmemiş olan tüm kategorileri getiren metot
+        Task<IDataResult<CategoryListDto>> GetAllByNonDelete(); // Silinmemiş olan tüm kategorileri getiren metot
+
+        Task<IDataResult<CategoryListDto>> GetAllByNonDeleteAndActive(); // Hem Silinmemiş hem aktif olan tüm kategorileri getiren metot
 
 
-        Task<IDataResult<Category>> Get(int categoryId); // Belirli bir kategoriyi id'ye göre getiren metot
+        Task<IDataResult<CategoryDto>> Get(int categoryId); // Belirli bir kategoriyi id'ye göre getiren metot
 
         Task<IResult> Add(CategoryAddDto categoryAddDto, string createdByName); // Yeni bir kategori ekleyen metot
 
