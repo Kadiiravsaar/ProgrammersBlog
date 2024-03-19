@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using ProgrammersBlog.Data.Abstract;
 using ProgrammersBlog.Data.Concrete.EntityFramework.Repositories;
-using ProgrammersBlog.Entites.Concrete;
-using ProgrammersBlog.Entites.Dtos.ArticleDto;
+using ProgrammersBlog.Entities.Concrete;
+using ProgrammersBlog.Entities.Dtos.ArticleDto;
 using ProgrammersBlog.Services.Abstract;
 using ProgrammersBlog.Shared.Utilities.Results.Abstract;
 using ProgrammersBlog.Shared.Utilities.Results.ComplexTypes;

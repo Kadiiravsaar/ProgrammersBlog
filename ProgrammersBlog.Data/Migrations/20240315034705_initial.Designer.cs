@@ -25,7 +25,7 @@ namespace ProgrammersBlog.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Article", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,7 +181,7 @@ namespace ProgrammersBlog.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Category", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -272,7 +272,7 @@ namespace ProgrammersBlog.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Comment", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,7 +359,7 @@ namespace ProgrammersBlog.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Role", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -424,7 +424,7 @@ namespace ProgrammersBlog.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.User", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -530,15 +530,15 @@ namespace ProgrammersBlog.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Article", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Article", b =>
                 {
-                    b.HasOne("ProgrammersBlog.Entites.Concrete.Category", "Category")
+                    b.HasOne("ProgrammersBlog.Entities.Concrete.Category", "Category")
                         .WithMany("Articles")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProgrammersBlog.Entites.Concrete.User", "User")
+                    b.HasOne("ProgrammersBlog.Entities.Concrete.User", "User")
                         .WithMany("Articles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -549,9 +549,9 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Comment", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Comment", b =>
                 {
-                    b.HasOne("ProgrammersBlog.Entites.Concrete.Article", "Article")
+                    b.HasOne("ProgrammersBlog.Entities.Concrete.Article", "Article")
                         .WithMany("Comments")
                         .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -560,9 +560,9 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Navigation("Article");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.User", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.User", b =>
                 {
-                    b.HasOne("ProgrammersBlog.Entites.Concrete.Role", "Role")
+                    b.HasOne("ProgrammersBlog.Entities.Concrete.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -571,22 +571,22 @@ namespace ProgrammersBlog.Data.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Article", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Article", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Category", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Category", b =>
                 {
                     b.Navigation("Articles");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.Role", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("ProgrammersBlog.Entites.Concrete.User", b =>
+            modelBuilder.Entity("ProgrammersBlog.Entities.Concrete.User", b =>
                 {
                     b.Navigation("Articles");
                 });

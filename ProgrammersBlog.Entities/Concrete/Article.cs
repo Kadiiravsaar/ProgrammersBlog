@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace ProgrammersBlog.Entites.Concrete
+namespace ProgrammersBlog.Entities.Concrete
 {
     public class Article : EntityBase, IEntity
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ProgrammersBlog.Entites.Concrete;
-using ProgrammersBlog.Entites.Dtos.CategoryDto;
+using ProgrammersBlog.Entities.Concrete;
+using ProgrammersBlog.Entities.Dtos.CategoryDto;
 
 namespace ProgrammersBlog.Services.AutoMapper.Profiles
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgrammersBlog.Data.Concrete.EntityFramework.Mappings;
-using ProgrammersBlog.Entites.Concrete;
+using ProgrammersBlog.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;

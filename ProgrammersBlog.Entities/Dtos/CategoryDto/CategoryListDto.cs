@@ -1,7 +1,7 @@
-﻿using ProgrammersBlog.Entites.Concrete;
+﻿using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Shared.Entities.Abstract;
 
-namespace ProgrammersBlog.Entites.Dtos.CategoryDto
+namespace ProgrammersBlog.Entities.Dtos.CategoryDto
 {
     public class CategoryListDto : DtoGetBase
     {

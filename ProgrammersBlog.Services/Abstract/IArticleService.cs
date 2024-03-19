@@ -1,4 +1,4 @@
-﻿using ProgrammersBlog.Entites.Dtos.ArticleDto;
+﻿using ProgrammersBlog.Entities.Dtos.ArticleDto;
 using ProgrammersBlog.Shared.Utilities.Results.Abstract;
 
 namespace ProgrammersBlog.Services.Abstract

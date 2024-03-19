@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using ProgrammersBlog.Entites.Concrete;
+using ProgrammersBlog.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;

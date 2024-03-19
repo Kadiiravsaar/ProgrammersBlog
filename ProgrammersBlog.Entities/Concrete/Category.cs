@@ -6,7 +6,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgrammersBlog.Entites.Concrete
+namespace ProgrammersBlog.Entities.Concrete
 {
     public class Category : EntityBase, IEntity
     {

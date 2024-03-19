@@ -1,6 +1,6 @@
 ﻿using ProgrammersBlog.Shared.Entities.Abstract;
 
-namespace ProgrammersBlog.Entites.Concrete
+namespace ProgrammersBlog.Entities.Concrete
 {
     public class Role : EntityBase, IEntity
     {

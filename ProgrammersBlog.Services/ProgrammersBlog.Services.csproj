@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProgrammersBlog.Data\ProgrammersBlog.Data.csproj" />
-    <ProjectReference Include="..\ProgrammersBlog.Entites\ProgrammersBlog.Entites.csproj" />
     <ProjectReference Include="..\ProgrammersBlog.Shared\ProgrammersBlog.Shared.csproj" />
   </ItemGroup>
 

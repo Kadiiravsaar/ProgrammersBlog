@@ -1,7 +1,7 @@
-﻿using ProgrammersBlog.Entites.Concrete;
+﻿using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Shared.Entities.Abstract;
 
-namespace ProgrammersBlog.Entites.Dtos.ArticleDto
+namespace ProgrammersBlog.Entities.Dtos.ArticleDto
 {
     public class ArticleListDto : DtoGetBase
     {

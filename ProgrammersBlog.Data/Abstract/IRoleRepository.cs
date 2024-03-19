@@ -1,4 +1,4 @@
-﻿using ProgrammersBlog.Entites.Concrete;
+﻿using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Shared.Data.Abstract;
 
 namespace ProgrammersBlog.Data.Abstract

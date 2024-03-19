@@ -1,8 +1,8 @@
-﻿using ProgrammersBlog.Entites.Concrete;
+﻿using ProgrammersBlog.Entities.Concrete;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace ProgrammersBlog.Entites.Dtos.ArticleDto
+namespace ProgrammersBlog.Entities.Dtos.ArticleDto
 {
     public class ArticleUpdateDto
     {

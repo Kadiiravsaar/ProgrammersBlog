@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ProgrammersBlog.Entites.Concrete;
-using ProgrammersBlog.Entites.Dtos.ArticleDto;
+using ProgrammersBlog.Entities.Concrete;
+using ProgrammersBlog.Entities.Dtos.ArticleDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
