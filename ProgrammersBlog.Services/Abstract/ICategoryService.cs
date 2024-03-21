@@ -20,9 +20,9 @@ namespace ProgrammersBlog.Services.Abstract
 
         Task<IDataResult<CategoryDto>> Get(int categoryId); // Belirli bir kategoriyi id'ye göre getiren metot
 
-        Task<IResult> Add(CategoryAddDto categoryAddDto, string createdByName); // Yeni bir kategori ekleyen metot
+        Task<IDataResult<CategoryDto>> Add(CategoryAddDto categoryAddDto, string createdByName); // Yeni bir kategori ekleyen metot
 
-        Task<IResult> Update(CategoryUpdateDto categoryUpdateDto, string updatedByName); // Varolan bir kategoriyi güncelleyen metot
+        Task<IDataResult<CategoryDto>> Update(CategoryUpdateDto categoryUpdateDto, string updatedByName); // Varolan bir kategoriyi güncelleyen metot
 
         Task<IResult> Delete(int categoryId, string modifiedByName); // Belirli bir kategoriyi silen metot
         Task<IResult> HardDelete(int categoryId); // Db'den silmek için 
