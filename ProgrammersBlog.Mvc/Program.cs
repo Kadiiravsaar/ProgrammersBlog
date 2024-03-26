@@ -1,9 +1,15 @@
 using ProgrammersBlog.Services.Extensions;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
+    //.AddNToastNotifyToastr();
 builder.Services.LoadMyService();
 //builder.Services.AddAutoMapper(typeof(Program));,
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
