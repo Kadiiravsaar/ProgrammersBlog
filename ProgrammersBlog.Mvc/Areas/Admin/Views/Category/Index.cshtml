@@ -65,8 +65,8 @@
                                 <td>@category.ModifiedDate.ToShortDateString()</td>
                                 <td>@category.ModifiedByName</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm"><span class="fas fa-edit"></span> Düzenle</button>
-                                    <button class="btn btn-danger btn-sm btn-delete" data-id="@category.Id"><span class="fas fa-minus-circle"></span>Sil</button>
+                                    <button class="btn btn-primary btn-sm"><span class="fas fa-edit"></span></button>
+                                    <button class="btn btn-danger btn-sm btn-delete" data-id="@category.Id"><span class="fas fa-minus-circle"></span></button>
                                 </td>
                             </tr>
                         }
@@ -141,6 +141,10 @@
                                             <td>${category.CreatedByName}</td>
                                             <td>${convertToShortDate(category.ModifiedDate)}</td>
                                             <td>${category.ModifiedByName}</td>
+                                                     <td>
+                                                    <button class="btn btn-primary btn-sm"><span class="fas fa-edit"></span> Düzenle</button>
+                                                    <button class="btn btn-danger btn-sm btn-delete" data-id="${category.Id}"><span class="fas fa-minus-circle"></span>Sil</button>
+                                                     </td>
                                                     </tr>`;
                                                 });
                                             $('#categoriesTable > tbody').replaceWith(tableBody);
@@ -247,12 +251,14 @@
                             });
                 });
         @* Ajax POST / Posting the FormData as CategoryAddDto ends here. *@
+
+
+
         @* Ajax POST / Deleting a Category starts from here *@
-                $(document).on('click',
-                    '.btn-delete',
+                $(document).on('click','.btn-delete', // sil butonun basıldığında fonk başlat
                     function (event) {
                         event.preventDefault();
-                        const id = $(this).attr('data-id');
+                        const id = $(this).attr('data-id'); // buton basıldığında id'yi yakala (data-id) sil butonuna bak orda bar
                         Swal.fire({
                             title: 'Silmek istediğinize emin misiniz?',
                             text: "Seçili kategori silinicektir!",
@@ -262,7 +268,7 @@
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Evet, silmek istiyorum.',
                             cancelButtonText: 'Hayır, silmek istemiyorum.'
-                        }).then((result) => {
+                        }).then((result) => { // işlem bittikten sonra yani confirm olursa evet olursa gibi
                             if (result.isConfirmed) {
                                 $.ajax({
                                     type: 'POST',
@@ -277,7 +283,7 @@
                                                 'Seçili kategori başarıyla silinmiştir.',
                                                 'success'
                                             );
-                                            const tableRow = $(`[name="${id}"]`);
+                                            const tableRow = $(`[name="${id}"]`); 
                                             tableRow.fadeOut(3500);
                                         } else {
                                             Swal.fire({
