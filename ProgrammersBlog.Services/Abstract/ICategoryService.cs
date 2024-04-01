@@ -19,6 +19,7 @@ namespace ProgrammersBlog.Services.Abstract
 
 
         Task<IDataResult<CategoryDto>> Get(int categoryId); // Belirli bir kategoriyi id'ye göre getiren metot
+        Task<IDataResult<CategoryUpdateDto>> GetCategoryUpdateDto(int categoryId); 
 
         Task<IDataResult<CategoryDto>> Add(CategoryAddDto categoryAddDto, string createdByName); // Yeni bir kategori ekleyen metot
 

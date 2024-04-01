@@ -14,6 +14,9 @@ namespace ProgrammersBlog.Services.AutoMapper.Profiles
             // CategoryAddDto al ve Category'ye dönüştür
             CreateMap<CategoryAddDto, Category>().ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(x => DateTime.UtcNow));
             CreateMap<CategoryUpdateDto, Category>().ForMember(dest => dest.ModifiedByName, opt => opt.MapFrom(x => DateTime.UtcNow));
+
+            CreateMap<Category, CategoryUpdateDto>();
+
         }
 
 
