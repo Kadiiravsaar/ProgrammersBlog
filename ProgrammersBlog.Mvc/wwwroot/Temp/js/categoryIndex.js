@@ -122,20 +122,20 @@
         placeHolderDiv.on('click',
             '#btnSave',
             function (event) { // btnSave adlı idye sahip kaydet butonu _CategoryAddPartial içerisinde
-            event.preventDefault();
-            const form = $('#form-category-add')  // formu seçmek istiyorum _CategoryAddPartial içerisinde
-            const actionUrl = form.attr('action')  // formu içerisindeki actionurl okumak için içerisinde (add üretiyor)
-            const dataToSend = form.serialize();  // form içindeki veriyi almak
-            $.post(actionUrl, dataToSend).done(function (data) { // done demek return demek ve içierisinden geleni aşağıda parse edicem
-                console.log(data);
-                const categoryAddAjaxModel = jQuery.parseJSON(data);
-                console.log(categoryAddAjaxModel);
-                const newFormBody = $('.modal-body', categoryAddAjaxModel.CategoryAddPartial);
-                placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
-                const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
-                if (isValid) {
-                    placeHolderDiv.find('.modal').modal('hide');
-                    const newTableRow = `
+                event.preventDefault();
+                const form = $('#form-category-add')  // formu seçmek istiyorum _CategoryAddPartial içerisinde
+                const actionUrl = form.attr('action')  // formu içerisindeki actionurl okumak için içerisinde (add üretiyor)
+                const dataToSend = form.serialize();  // form içindeki veriyi almak
+                $.post(actionUrl, dataToSend).done(function (data) { // done demek return demek ve içierisinden geleni aşağıda parse edicem
+                    console.log(data);
+                    const categoryAddAjaxModel = jQuery.parseJSON(data);
+                    console.log(categoryAddAjaxModel);
+                    const newFormBody = $('.modal-body', categoryAddAjaxModel.CategoryAddPartial);
+                    placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
+                    const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
+                    if (isValid) {
+                        placeHolderDiv.find('.modal').modal('hide');
+                        const newTableRow = `
                                             <tr>
                                                 <td>${categoryAddAjaxModel.CategoryDto.Category.Id}</td>
                                                 <td>${categoryAddAjaxModel.CategoryDto.Category.Name}</td>
@@ -152,21 +152,21 @@
                                                     <button class="btn btn-danger btn-sm btn-delete" data-id="${categoryAddAjaxModel.CategoryDto.Category.Id}"><span class="fas fa-minus-circle"></span></button>
                                                 </td>
                                             </tr>`;
-                    const newTableRowObject = $(newTableRow);
-                    newTableRowObject.hide();
-                    $('#categoriesTable').append(newTableRowObject);
-                    newTableRowObject.fadeIn(3500);
-                    toastr.success(`${categoryAddAjaxModel.CategoryDto.Message}`, 'Başarılı İşlem!');
-                } else {
-                    let summaryText = "";
-                    $('#validation-summary > ul > li').each(function () {
-                        let text = $(this).text();
-                        summaryText = `*${text}\n`;
-                    });
-                    toastr.warning(summaryText);
-                }
+                        const newTableRowObject = $(newTableRow);
+                        newTableRowObject.hide();
+                        $('#categoriesTable').append(newTableRowObject);
+                        newTableRowObject.fadeIn(3500);
+                        toastr.success(`${categoryAddAjaxModel.CategoryDto.Message}`, 'Başarılı İşlem!');
+                    } else {
+                        let summaryText = "";
+                        $('#validation-summary > ul > li').each(function () {
+                            let text = $(this).text();
+                            summaryText = `*${text}\n`;
+                        });
+                        toastr.warning(summaryText);
+                    }
+                });
             });
-        });
     });
 
     // Ajax POST / Posting the FormData as CategoryAddDto ends here.
@@ -228,4 +228,20 @@
                 }
             })
         });
+    $(function () {
+        const url = '/Admin/Category/Update/';
+        const placeHolderDiv = $('#modalPlaceHolder');
+        $(document).on('click',
+            '.btn-update',
+            function (event) {
+                event.preventDefault();
+                const id = $(this).attr('data-id');
+                $.get(url, { categoryId: id }).done(function (data) {
+                    placeHolderDiv.html(data);
+                    placeHolderDiv.find('.modal').modal('show');
+                }).fail(function () {
+                    toastr.error("Bir hata oluştu.");
+                });
+            });
+    });
 });
