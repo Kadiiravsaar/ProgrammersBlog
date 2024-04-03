@@ -30,10 +30,6 @@ namespace ProgrammersBlog.Data.Concrete
 
         public ICommentRepository Comments => _commentRepository ?? new EFCommentRepository(_context);
 
-        public IUserRepository Users => _userRepository ?? new EFUserRepository(_context);
-
-        public IRoleRepository Roles => _roleRepository ?? new EFRoleRepository(_context);
-
         public async ValueTask DisposeAsync()
         {
             await _context.DisposeAsync();
