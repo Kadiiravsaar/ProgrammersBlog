@@ -15,9 +15,7 @@ namespace ProgrammersBlog.Data.Concrete
         private EFArticleRepository _articleRepository;
         private EFCategoryRepository _categoryRepository;
         private EFCommentRepository _commentRepository;
-        private EFRoleRepository _roleRepository;
-        private EFUserRepository _userRepository;
-
+       
         public UnitOfWork(AppDbContext appDbContext)
         {
             _context = appDbContext;
