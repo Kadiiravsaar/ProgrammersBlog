@@ -25,7 +25,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = System.TimeSpan.FromDays(7);
-    options.AccessDeniedPath = new PathString("Admin/User/AccessDenied");
+    options.AccessDeniedPath = new PathString("/Admin/User/AccessDenied");
 });
 //builder.Services.AddAutoMapper(typeof(Program));,
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
