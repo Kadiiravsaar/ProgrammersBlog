@@ -2,9 +2,9 @@
 using ProgrammersBlog.Entities.Concrete;
 using ProgrammersBlog.Entities.Dtos.UserDto;
 
-namespace ProgrammersBlog.Mvc.Areas.AutoMapper.Profiles
+namespace ProgrammersBlog.Mvc.AutoMapper.Profiles
 {
-    public class UserProfile:Profile
+    public class UserProfile : Profile
     {
         public UserProfile()
         {

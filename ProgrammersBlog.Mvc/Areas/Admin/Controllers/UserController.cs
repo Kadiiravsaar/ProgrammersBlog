@@ -1,13 +1,18 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProgrammersBlog.Entities.Concrete;
-using ProgrammersBlog.Entities.Dtos.UserDto;
-using ProgrammersBlog.Mvc.Areas.Admin.Models;
+using ProgrammersBlog.Entities.Dtos;
 using ProgrammersBlog.Shared.Utilities.Extensions;
 using ProgrammersBlog.Shared.Utilities.Results.ComplexTypes;
+using System;
+using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
+using ProgrammersBlog.Mvc.Areas.Admin.Models;
+using ProgrammersBlog.Entities.Dtos.UserDto;
 
 namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 {
@@ -17,6 +22,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
+
         public UserController(UserManager<User> userManager, IWebHostEnvironment env, IMapper mapper)
         {
             _userManager = userManager;
@@ -27,27 +33,25 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users.ToListAsync();
-          
-            return View(new UserListDto()
+            return View(new UserListDto
             {
                 Users = users,
                 ResultStatus = ResultStatus.Success
             });
         }
-
-
         [HttpGet]
         public IActionResult Add()
         {
             return PartialView("_UserAddPartial");
         }
-
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDto userAddDto)
         {
+            userAddDto.Picture = await ImageUpload(userAddDto);
+          
+
             if (ModelState.IsValid)
             {
-                userAddDto.Picture = await ImageUpload(userAddDto);
                 var user = _mapper.Map<User>(userAddDto);
                 var result = await _userManager.CreateAsync(user, userAddDto.Password);
                 if (result.Succeeded)
@@ -89,25 +93,33 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 
         }
 
-
-        [HttpGet]
         public async Task<string> ImageUpload(UserAddDto userAddDto)
         {
-            // ~/img/user.Picture
-            string wwwroot = _env.WebRootPath; // wwwroot dosya yolu gelir
-            // kadiravsar     
-            //.png
-            string fileExtension = Path.GetExtension(userAddDto.PictureFile.FileName); // dosya adı sonu uzantısı geldi
-            DateTime dateTime = DateTime.Now;
-            
-            string fileName = $"{userAddDto.UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}"; // KadirAvsar_38_12_3_10_2020.png
-            var path = Path.Combine($"{wwwroot}/img", fileName);
-            await using (var stream = new FileStream(path, FileMode.Create))
+            string wwwroot = _env.WebRootPath;
+            if (userAddDto.PictureFile == null)
             {
-                await userAddDto.PictureFile.CopyToAsync(stream);
-            }
 
-            return fileName; // KadirAvsar_12_6_4_2024.png - "~/img/user.Picture"
+                userAddDto.Picture = "efebcb8d-ace4-4a2e-b4e4-48dfe1b2bf56.png";
+                return userAddDto.Picture;
+            }
+            else
+            {
+                // string fileName2 = Path.GetFileNameWithoutExtension(userAddDto.PictureFile.FileName);
+                //.png
+                string fileExtension = Path.GetExtension(userAddDto.PictureFile.FileName);
+                DateTime dateTime = DateTime.Now;
+                // AlperTunga_587_5_38_12_3_10_2020.png
+                string fileName = $"{userAddDto.UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+                var path = Path.Combine($"{wwwroot}/img", fileName);
+                await using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await userAddDto.PictureFile.CopyToAsync(stream);
+                }
+
+                return fileName; // AlperTunga_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
+            }
+            // alpertunga     
+         
         }
     }
 }
