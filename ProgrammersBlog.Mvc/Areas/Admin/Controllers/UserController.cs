@@ -45,14 +45,14 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             string wwwroot = _env.WebRootPath; // wwwroot dosya yolu gelir
             // kadiravsar     
             //.png
-            string fileExtension = Path.GetExtension(userAddDto.Picture.FileName); // dosya adı sonu uzantısı geldi
+            string fileExtension = Path.GetExtension(userAddDto.PictureFile.FileName); // dosya adı sonu uzantısı geldi
             DateTime dateTime = DateTime.Now;
             
             string fileName = $"{userAddDto.UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}"; // KadirAvsar_38_12_3_10_2020.png
             var path = Path.Combine($"{wwwroot}/img", fileName);
             await using (var stream = new FileStream(path, FileMode.Create))
             {
-                await userAddDto.Picture.CopyToAsync(stream);
+                await userAddDto.PictureFile.CopyToAsync(stream);
             }
 
             return fileName; // KadirAvsar_12_6_4_2024.png - "~/img/user.Picture"
