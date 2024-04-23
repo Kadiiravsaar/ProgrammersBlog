@@ -66,8 +66,8 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDto userAddDto)
         {
-            userAddDto.Picture = await ImageUpload(userAddDto);
-          
+            userAddDto.Picture = await ImageUpload(userAddDto.UserName, userAddDto.PictureFile);
+
 
             if (ModelState.IsValid)
             {
@@ -153,33 +153,115 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             var userUpdateDto = _mapper.Map<UserUpdateDto>(user);
             return PartialView("_UserUpdatePartial", userUpdateDto);
         }
-        public async Task<string> ImageUpload(UserAddDto userAddDto)
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateDto userUpdateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isNewPictureUploaded = false;
+                var oldUser = await _userManager.FindByIdAsync(userUpdateDto.Id.ToString());
+                var oldUserPicture = oldUser.Picture;
+                if (userUpdateDto.PictureFile != null)
+                {
+                    userUpdateDto.Picture = await ImageUpload(userUpdateDto.UserName, userUpdateDto.PictureFile);
+                    isNewPictureUploaded = true;
+                }
+
+                var updatedUser = _mapper.Map<UserUpdateDto, User>(userUpdateDto, oldUser);
+                var result = await _userManager.UpdateAsync(updatedUser);
+                if (result.Succeeded)
+                {
+                    if (isNewPictureUploaded)
+                    {
+                        ImageDelete(oldUserPicture);
+                    }
+
+                    var userUpdateViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel
+                    {
+                        UserDto = new UserDto
+                        {
+                            ResultStatus = ResultStatus.Success,
+                            Message = $"{updatedUser.UserName} adlı kullanıcı başarıyla güncellenmiştir.",
+                            User = updatedUser
+                        },
+                        UserUpdatePartial = await this.RenderViewToStringAsync("_UserUpdatePartial", userUpdateDto)
+                    });
+                    return Json(userUpdateViewModel);
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    var userUpdateErorViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel
+                    {
+                        UserUpdateDto = userUpdateDto,
+                        UserUpdatePartial = await this.RenderViewToStringAsync("_UserUpdatePartial", userUpdateDto)
+                    });
+                    return Json(userUpdateErorViewModel);
+                }
+
+            }
+            else
+            {
+                var userUpdateModelStateErrorViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel
+                {
+                    UserUpdateDto = userUpdateDto,
+                    UserUpdatePartial = await this.RenderViewToStringAsync("_UserUpdatePartial", userUpdateDto)
+                });
+                return Json(userUpdateModelStateErrorViewModel);
+            }
+        }
+
+        public async Task<string> ImageUpload(string userName, IFormFile pictureFile)
         {
             string wwwroot = _env.WebRootPath;
-            if (userAddDto.PictureFile == null)
-            {
 
-                userAddDto.Picture = "efebcb8d-ace4-4a2e-b4e4-48dfe1b2bf56.png";
-                return userAddDto.Picture;
+            if (pictureFile == null)
+            {
+                string defaultFileName = "efebcb8d-ace4-4a2e-b4e4-48dfe1b2bf56.png";
+                byte[] fileBytes = System.IO.File.ReadAllBytes(Path.Combine(wwwroot, "uploads", defaultFileName));
+                pictureFile = new FormFile(new MemoryStream(fileBytes), 0, fileBytes.Length, "name", defaultFileName);
+
+                string fileName = pictureFile.FileName;
+                return fileName;
             }
             else
             {
                 // string fileName2 = Path.GetFileNameWithoutExtension(userAddDto.PictureFile.FileName);
                 //.png
-                string fileExtension = Path.GetExtension(userAddDto.PictureFile.FileName);
+                string fileExtension = Path.GetExtension(pictureFile.FileName);
                 DateTime dateTime = DateTime.Now;
                 // kullanici_587_5_38_12_3_10_2020.png
-                string fileName = $"{userAddDto.UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+                string fileName = $"{userName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
                 var path = Path.Combine($"{wwwroot}/img", fileName);
                 await using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    await userAddDto.PictureFile.CopyToAsync(stream);
+                    await pictureFile.CopyToAsync(stream);
                 }
 
                 return fileName; // Kullanici_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
             }
             //  Kullanici     
 
+        }
+
+
+        public bool ImageDelete(string pictureName)
+        {
+            string wwwroot = _env.WebRootPath;
+            var fileToDelete = Path.Combine($"{wwwroot}/img", pictureName);
+            if (System.IO.File.Exists(fileToDelete))
+            {
+                System.IO.File.Delete(fileToDelete);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
