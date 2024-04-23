@@ -13,6 +13,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ProgrammersBlog.Mvc.Areas.Admin.Models;
 using ProgrammersBlog.Entities.Dtos.UserDto;
+using System.Text.Json.Serialization;
 
 namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
 {
@@ -39,6 +40,24 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 ResultStatus = ResultStatus.Success
             });
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAllUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var usersListDto = JsonSerializer.Serialize(new UserListDto
+            {
+                Users = users,
+                ResultStatus = ResultStatus.Success
+            },
+            new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve 
+            });
+            return Json(usersListDto);
+              
+        }
+
         [HttpGet]
         public IActionResult Add()
         {
