@@ -145,6 +145,14 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             }
         }
 
+
+        [HttpGet]
+        public async Task<PartialViewResult> Update(int userId)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var userUpdateDto = _mapper.Map<UserUpdateDto>(user);
+            return PartialView("_UserUpdatePartial", userUpdateDto);
+        }
         public async Task<string> ImageUpload(UserAddDto userAddDto)
         {
             string wwwroot = _env.WebRootPath;
@@ -160,7 +168,7 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                 //.png
                 string fileExtension = Path.GetExtension(userAddDto.PictureFile.FileName);
                 DateTime dateTime = DateTime.Now;
-                // AlperTunga_587_5_38_12_3_10_2020.png
+                // kullanici_587_5_38_12_3_10_2020.png
                 string fileName = $"{userAddDto.UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
                 var path = Path.Combine($"{wwwroot}/img", fileName);
                 await using (var stream = new FileStream(path, FileMode.Create))
@@ -168,10 +176,10 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
                     await userAddDto.PictureFile.CopyToAsync(stream);
                 }
 
-                return fileName; // AlperTunga_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
+                return fileName; // Kullanici_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
             }
-            // alpertunga     
-         
+            //  Kullanici     
+
         }
     }
 }

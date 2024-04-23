@@ -1,0 +1,13 @@
+﻿.my-image{
+    border-radius:5px;
+    border:2px solid #d3d3d3;
+    max-height:100px;
+    max-width:100px;
+}
+
+.my-image-table {
+    border-radius: 5px;
+    border: 2px solid #d3d3d3;
+    max-height: 75px;
+    max-width: 75px;
+}
