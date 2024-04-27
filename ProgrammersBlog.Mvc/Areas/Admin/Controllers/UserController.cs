@@ -52,10 +52,10 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
             },
             new JsonSerializerOptions
             {
-                ReferenceHandler = ReferenceHandler.Preserve 
+                ReferenceHandler = ReferenceHandler.Preserve
             });
             return Json(usersListDto);
-              
+
         }
 
         [HttpGet]
@@ -219,31 +219,20 @@ namespace ProgrammersBlog.Mvc.Areas.Admin.Controllers
         {
             string wwwroot = _env.WebRootPath;
 
-            if (pictureFile == null)
+            // string fileName2 = Path.GetFileNameWithoutExtension(userAddDto.PictureFile.FileName);
+            //.png
+            string fileExtension = Path.GetExtension(pictureFile.FileName);
+            DateTime dateTime = DateTime.Now;
+            // kullanici_587_5_38_12_3_10_2020.png
+            string fileName = $"{userName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+            var path = Path.Combine($"{wwwroot}/img", fileName);
+            await using (var stream = new FileStream(path, FileMode.Create))
             {
-                string defaultFileName = "efebcb8d-ace4-4a2e-b4e4-48dfe1b2bf56.png";
-                byte[] fileBytes = System.IO.File.ReadAllBytes(Path.Combine(wwwroot, "uploads", defaultFileName));
-                pictureFile = new FormFile(new MemoryStream(fileBytes), 0, fileBytes.Length, "name", defaultFileName);
-
-                string fileName = pictureFile.FileName;
-                return fileName;
+                await pictureFile.CopyToAsync(stream);
             }
-            else
-            {
-                // string fileName2 = Path.GetFileNameWithoutExtension(userAddDto.PictureFile.FileName);
-                //.png
-                string fileExtension = Path.GetExtension(pictureFile.FileName);
-                DateTime dateTime = DateTime.Now;
-                // kullanici_587_5_38_12_3_10_2020.png
-                string fileName = $"{userName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
-                var path = Path.Combine($"{wwwroot}/img", fileName);
-                await using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await pictureFile.CopyToAsync(stream);
-                }
 
-                return fileName; // Kullanici_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
-            }
+            return fileName; // Kullanici_587_5_38_12_3_10_2020.png - "~/img/user.Picture"
+
             //  Kullanici     
 
         }
